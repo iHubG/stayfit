@@ -28,4 +28,4 @@ StayFit focuses on **simplicity**, **user-friendly design**, and **valuable fitn
 **Styling:** Tailwind CSS + shadcn/ui components  
 **Backend:** Firebase (Authentication, Firestore Database)  
 **AI Integration:** Google Gemini API 2.5 Flash  
-**Deployment:** _TBD_ (Recommended: Vercel or Netlify)  
+**Deployment:** Vercel
