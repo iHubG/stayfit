@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../libs/useAuth";
-import ClipLoader from "react-spinners/ClipLoader";
+// import PulseLoader from "react-spinners/PulseLoader";
 import type { JSX } from "react";
 
 export default function PrivateRoute({ children }: { children: JSX.Element }) {
@@ -9,7 +9,7 @@ export default function PrivateRoute({ children }: { children: JSX.Element }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <ClipLoader color="#4f46e5" size={50} /> {/* Tailwind primary color */}
+        {/* <PulseLoader color="#4f46e5" size={12} /> Tailwind primary color */}
       </div>
     );
   }

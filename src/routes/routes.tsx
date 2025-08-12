@@ -8,7 +8,9 @@ const Home = lazy(() => import("../pages/Home"));
 const Login = lazy(() => import("../pages/auth/Login"));
 const Register = lazy(() => import("../pages/auth/Register"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
-const WorkoutPlans = lazy(() => import("../pages/WorkoutPlans"));
+const Chat = lazy(() => import("../pages/Chat"));
+const Workouts = lazy(() => import("../pages/Workouts"));
+const WorkoutDetail = lazy(() => import("../components/WorkoutDetail"));
 const Profile = lazy(() => import("../pages/Profile"));
 const ProfileSetup = lazy(() => import("../pages/ProfileSetup")); 
 const NotFound = lazy(() => import("../pages/NotFound"));
@@ -43,10 +45,26 @@ export const routes: RouteObject[] = [
     ),
   },
   {
+    path: "/chat",
+    element: (
+      <PrivateRoute>
+        <Page title="StayFit | Chat"><Chat /></Page>
+      </PrivateRoute>
+    ),
+  },
+  {
     path: "/workouts",
     element: (
       <PrivateRoute>
-        <Page title="StayFit | Workout Plans"><WorkoutPlans /></Page>
+        <Page title="StayFit | Workout "><Workouts /></Page>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/workout/:id",
+    element: (
+      <PrivateRoute>
+        <Page title="StayFit | Workout Details "><WorkoutDetail /></Page>
       </PrivateRoute>
     ),
   },

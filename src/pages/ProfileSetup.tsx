@@ -4,7 +4,7 @@ import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
-import { Dumbbell, User, Calendar, Activity, Loader2 } from "lucide-react";
+import { Dumbbell, User, Calendar, Loader2 } from "lucide-react";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db, auth } from "../libs/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -180,7 +180,7 @@ export default function ProfileSetup() {
               </Button>
             </form>
 
-            {/* Skip Option */}
+            {/* Skip Option
             <div className="text-center mt-4">
               <Button
                 variant="outline"
@@ -189,7 +189,7 @@ export default function ProfileSetup() {
               >
                 Skip for now
               </Button>
-            </div>
+            </div> */}
           </CardContent>
         </Card>
       </div>

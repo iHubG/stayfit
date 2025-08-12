@@ -1,7 +1,8 @@
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
-import { Dumbbell, MessageCircle, BarChart3, ArrowRight, Heart } from "lucide-react";
+import { Dumbbell, MessageCircle, BarChart3, ArrowRight, } from "lucide-react";
 import { Link } from "react-router-dom";
+import Footer from "./Footer";
 
 export default function Home() {
   return (
@@ -145,20 +146,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Simple Footer */}
-      <footer className="py-6 px-6 bg-gray-50">
-        <div className="flex flex-col md:flex-row justify-between items-center max-w-6xl mx-auto">
-          <div className="flex items-center gap-2 mb-4 md:mb-0">
-            <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded flex items-center justify-center">
-              <Dumbbell className="w-4 h-4 text-white" />
-            </div>
-            <span className="font-semibold text-gray-800">StayFit</span>
-          </div>
-          <p className="text-sm text-gray-500 flex gap-2 items-center">
-            Simple AI fitness coaching • Made with <span><Heart className="text-rose-500" size={20}/></span>
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

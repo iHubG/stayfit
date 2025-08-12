@@ -3,6 +3,25 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* styles.css or a global stylesheet */
+.markdown-clean p {
+  margin: 0 !important;
+  padding: 0;
+}
+
+.markdown-clean ul,
+.markdown-clean ol {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.markdown-clean h1,
+.markdown-clean h2,
+.markdown-clean h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
