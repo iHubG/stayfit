@@ -202,28 +202,25 @@ export default function Profile() {
                 {/* Email */}
                 <FormItem>
                   <FormLabel>Email</FormLabel>
-                  <div className="flex items-center gap-2">
-                    <Input
-                      value={profile.email}
-                      disabled
-                      className="bg-muted"
-                    />
-                    {!isGoogleUser && (
+                  <Input value={profile.email} disabled className="bg-muted" />
+                  {!isGoogleUser && (
+                    <div className="mt-1">
                       <Button
                         type="button"
                         variant="outline"
                         onClick={handleResetPassword}
-                        className="cursor-pointer"
+                        className="cursor-pointer bg-[#4f46e5] text-white hover:bg-indigo-700 transition hover:text-white"
                       >
                         Reset Password
                       </Button>
-                    )}
-                    {isGoogleUser && (
-                      <p className="text-xs text-yellow-600 italic">
-                        Password reset is unavailable for Google accounts.
-                      </p>
-                    )}
-                  </div>
+                    </div>
+                  )}
+
+                  {isGoogleUser && (
+                    <p className="mt-1 text-xs text-yellow-600 italic">
+                      Password reset is unavailable for Google accounts.
+                    </p>
+                  )}
                 </FormItem>
 
                 {/* Age */}
