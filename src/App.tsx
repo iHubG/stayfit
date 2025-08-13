@@ -5,6 +5,7 @@ import { Dumbbell } from "lucide-react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { auth } from "./libs/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import { Analytics } from "@vercel/analytics/react"
 
 function checkLoginExpiry(): boolean {
   const timestamp = localStorage.getItem("loginTimestamp");
@@ -53,6 +54,7 @@ export default function App() {
   return (
     <Suspense fallback={<div className="flex items-center justify-center min-h-screen"></div>}>
       {element}
+      <Analytics />
     </Suspense>
   );
 }
