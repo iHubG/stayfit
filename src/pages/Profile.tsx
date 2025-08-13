@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { doc, updateDoc } from "firebase/firestore";
@@ -9,6 +10,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 
 import { auth, db } from "../libs/firebase";
 import Layout from "../components/layout/layout";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 import {
   Form,
@@ -29,17 +31,30 @@ import {
 } from "../components/ui/select";
 
 import { Button } from "../components/ui/button";
-import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "../components/ui/card";
 import { Alert, AlertDescription } from "../components/ui/alert";
 import { Loader2 } from "lucide-react";
 
 const profileSchema = z.object({
   name: z.string().min(1, "Name is required"),
   age: z
-    .number({ required_error: "Age is required", invalid_type_error: "Age must be a number" })
+    .number({
+      invalid_type_error: "Age must be a number",
+    })
     .min(1, "Age must be positive"),
+
   fitnessLevel: z.enum(["beginner", "intermediate", "advanced"]),
-  primaryGoal: z.enum(["lose_weight", "build_muscle", "get_fit", "maintain_health"]),
+  primaryGoal: z.enum([
+    "lose_weight",
+    "build_muscle",
+    "get_fit",
+    "maintain_health",
+  ]),
   preferredLocation: z.enum(["home", "gym"]),
   availableTime: z.enum(["15min", "30min", "45min", "60min+"]),
 });
@@ -54,6 +69,25 @@ export default function Profile() {
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [resetStatus, setResetStatus] = useState<string | null>(null);
+
+  const isGoogleUser = user?.providerData.some(
+    (provider) => provider.providerId === "google.com"
+  );
+
+  const handleResetPassword = async () => {
+    if (!user?.email) return;
+
+    try {
+      await sendPasswordResetEmail(auth, user.email);
+      setResetStatus(
+        "A password reset email has been sent to your email address."
+      );
+    } catch (error: any) {
+      setResetStatus("Failed to send reset email. Please try again.");
+      console.error("Password reset error:", error);
+    }
+  };
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
@@ -158,7 +192,11 @@ export default function Profile() {
                     <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your name" {...field} disabled={saving} />
+                        <Input
+                          placeholder="Your name"
+                          {...field}
+                          disabled={saving}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -168,7 +206,28 @@ export default function Profile() {
                 {/* Email */}
                 <FormItem>
                   <FormLabel>Email</FormLabel>
-                  <Input value={profile.email} disabled className="bg-muted" />
+                  <div className="flex items-center gap-2">
+                    <Input
+                      value={profile.email}
+                      disabled
+                      className="bg-muted"
+                    />
+                    {!isGoogleUser && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={handleResetPassword}
+                        className="cursor-pointer"
+                      >
+                        Reset Password
+                      </Button>
+                    )}
+                    {isGoogleUser && (
+                      <p className="text-xs text-yellow-600 italic">
+                        Password reset is unavailable for Google accounts.
+                      </p>
+                    )}
+                  </div>
                 </FormItem>
 
                 {/* Age */}
@@ -184,7 +243,9 @@ export default function Profile() {
                           min={1}
                           {...field}
                           disabled={saving}
-                          onChange={(e) => field.onChange(Number(e.target.value))}
+                          onChange={(e) =>
+                            field.onChange(Number(e.target.value))
+                          }
                         />
                       </FormControl>
                       <FormMessage />
@@ -210,7 +271,9 @@ export default function Profile() {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="beginner">Beginner</SelectItem>
-                            <SelectItem value="intermediate">Intermediate</SelectItem>
+                            <SelectItem value="intermediate">
+                              Intermediate
+                            </SelectItem>
                             <SelectItem value="advanced">Advanced</SelectItem>
                           </SelectContent>
                         </Select>
@@ -237,10 +300,16 @@ export default function Profile() {
                             <SelectValue placeholder="Select primary goal" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="lose_weight">Lose Weight</SelectItem>
-                            <SelectItem value="build_muscle">Build Muscle</SelectItem>
+                            <SelectItem value="lose_weight">
+                              Lose Weight
+                            </SelectItem>
+                            <SelectItem value="build_muscle">
+                              Build Muscle
+                            </SelectItem>
                             <SelectItem value="get_fit">Get Fit</SelectItem>
-                            <SelectItem value="maintain_health">Maintain Health</SelectItem>
+                            <SelectItem value="maintain_health">
+                              Maintain Health
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       </FormControl>
@@ -309,7 +378,9 @@ export default function Profile() {
                 <FormItem>
                   <FormLabel>Joined</FormLabel>
                   <Input
-                    value={profile.createdAt?.toDate().toLocaleDateString() || ""}
+                    value={
+                      profile.createdAt?.toDate().toLocaleDateString() || ""
+                    }
                     disabled
                     className="bg-muted"
                   />
@@ -324,12 +395,26 @@ export default function Profile() {
                   )}
                   {success && (
                     <Alert className="bg-green-100 border-green-400 text-green-800">
-                      <AlertDescription>Profile updated successfully!</AlertDescription>
+                      <AlertDescription>
+                        Profile updated successfully!
+                      </AlertDescription>
                     </Alert>
                   )}
 
-                  <Button type="submit" disabled={saving} className="w-full md:w-auto">
-                    {saving && <Loader2 className="animate-spin mr-2 h-4 w-4" />}
+                  {resetStatus && (
+                    <Alert className="bg-blue-100 border-blue-400 text-blue-800">
+                      <AlertDescription>{resetStatus}</AlertDescription>
+                    </Alert>
+                  )}
+
+                  <Button
+                    type="submit"
+                    disabled={saving}
+                    className="w-full md:w-auto cursor-pointer"
+                  >
+                    {saving && (
+                      <Loader2 className="animate-spin mr-2 h-4 w-4" />
+                    )}
                     {saving ? "Saving..." : "Save Changes"}
                   </Button>
                 </div>

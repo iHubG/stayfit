@@ -7,7 +7,7 @@ export default function useWelcomeMessage(profileData: any) {
   const location = profileData?.preferredLocation || "home or gym";
   const time = profileData?.availableTime || "any duration";
 
-  return `Hey ${name}! 👋 I'm your AI fitness coach. I know you want to ${goal.replace(
+  return `Hey ${name}! 👋 I'm StayFit your AI fitness coach. I know you want to ${goal.replace(
     "_",
     " "
   )} and prefer ${location} workouts with ${time} sessions. 

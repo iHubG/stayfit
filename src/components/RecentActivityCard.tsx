@@ -38,11 +38,11 @@ export default function RecentActivityCard({ workouts, onViewAll }: Props) {
                 <div className="flex items-center gap-3">
                   <div className={`w-2 h-2 rounded-full ${isCompleted ? "bg-green-500" : "bg-gray-400"}`} />
                   <div>
-                    <p className="text-sm font-medium text-gray-800">{data.title || "Workout"}</p>
+                    <p className="text-sm font-medium text-gray-800">{(data.title || "Workout").replace(/\*\*/g, "")}</p>
                     <p className="text-xs text-gray-500">{date ? date.toLocaleDateString() : "Recent"}</p>
                   </div>
                 </div>
-                <div className="text-sm text-gray-500">{data.duration || ""}</div>
+                <div className="text-sm text-gray-500">{(data.duration || "").replace(/\*\*/g, "")}</div>
               </div>
             );
           })}

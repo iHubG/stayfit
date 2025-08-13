@@ -35,7 +35,7 @@ export default function MessageInput({ onSend, disabled }: Props) {
           className="flex-1"
           disabled={disabled}
         />
-        <Button onClick={handleSend} disabled={disabled || !text.trim()} size="sm">
+        <Button onClick={handleSend} disabled={disabled || !text.trim()} size="sm" className="cursor-pointer">
           {disabled ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
         </Button>
       </div>
@@ -50,7 +50,7 @@ export default function MessageInput({ onSend, disabled }: Props) {
             key={index}
             variant="outline"
             size="sm"
-            className="text-xs"
+            className="text-xs cursor-pointer"
             onClick={() => setText(suggestion)}
             disabled={disabled}
           >

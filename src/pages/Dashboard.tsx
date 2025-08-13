@@ -4,7 +4,7 @@ import { useDocument, useCollection } from "react-firebase-hooks/firestore";
 import { useNavigate } from "react-router-dom";
 import { auth, db } from "../libs/firebase";
 import { doc, collection, query, orderBy, limit } from "firebase/firestore";
-import ClipLoader from "react-spinners/ClipLoader";
+import PulseLoader from "react-spinners/PulseLoader";
 
 // Components
 import Layout from "../components/layout/layout";
@@ -22,8 +22,12 @@ export default function Dashboard() {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
 
-  const [profile, profileLoading] = useDocument(user && doc(db, "users", user.uid));
-  const [stats, statsLoading] = useDocument(user && doc(db, "users", user.uid, "stats", "summary"));
+  // Load the whole user doc
+  const [userDoc, userDocLoading] = useDocument(
+    user && doc(db, "users", user.uid)
+  );
+
+  // Load recent workouts
   const [workouts] = useCollection(
     user &&
       query(
@@ -34,34 +38,42 @@ export default function Dashboard() {
   );
 
   if (!user) return null;
-  if (profileLoading || statsLoading) {
-    <ClipLoader color="#4f46e5" size={50} />
+
+  // Proper loading state
+  if (userDocLoading) {
+    return (
+       <div className="flex items-center justify-center min-h-screen">
+          <PulseLoader color="#4f46e5" size={12} />
+        </div>
+    );
   }
 
-  const profileData = profile?.data()?.profile;
-  const statsData = stats?.data();
+  const userData = userDoc?.data() || {};
+  const profileData = userData.profile || {};
+  const statsData = userData.stats || {};
   const recentWorkouts = workouts?.docs || [];
 
-  const currentStreak = statsData?.currentStreak || 0;
+  const currentStreak = statsData.currentStreak || 0;
   const greeting = useGreeting();
   const motivationalMessage = useMotivationalMessage(currentStreak);
-  const { progress, completedCount, remainingCount } = useWeeklyProgress(recentWorkouts);
+  const { progress, completedCount, remainingCount } = useWeeklyProgress(
+    recentWorkouts
+  );
 
   return (
     <Layout>
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto p-4">
         <WelcomeSection
           greeting={greeting}
-          name={profileData?.name}
+          name={profileData.name}
           message={motivationalMessage}
-         
         />
 
         <StatSection
           currentStreak={currentStreak}
-          totalWorkouts={statsData?.totalWorkouts || 0}
+          totalWorkouts={statsData.totalWorkouts || 0}
           weekProgress={progress}
-          bestStreak={statsData?.longestStreak || 0}
+          bestStreak={statsData.longestStreak || 0}
         />
 
         <WeeklyProgressCard
@@ -70,7 +82,10 @@ export default function Dashboard() {
           remainingCount={remainingCount}
         />
 
-        <RecentActivityCard workouts={recentWorkouts} onViewAll={() => navigate("/workouts")} />
+        <RecentActivityCard
+          workouts={recentWorkouts}
+          onViewAll={() => navigate("/workouts")}
+        />
       </div>
     </Layout>
   );

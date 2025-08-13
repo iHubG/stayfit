@@ -22,6 +22,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "../ui/sidebar";
+import { signOut } from "firebase/auth";
 
 const links = [
   { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
@@ -37,6 +38,8 @@ export function AppSidebar() {
 
   const handleLogout = async () => {
     await auth.signOut();
+    await signOut(auth);
+    localStorage.removeItem("loginTimestamp");
     navigate("/login");
   };
 

@@ -11,7 +11,7 @@ export default function useWorkoutPrompt(profileData: any) {
       availableTime: profileData?.availableTime || "30min"
     };
 
-    return `You are an expert AI fitness coach. Here's the user's profile:
+    return `You are an expert StayFit AI fitness coach. Here's the user's profile:
 - Name: ${context.name}
 - Age: ${context.age}
 - Fitness Level: ${context.fitnessLevel}

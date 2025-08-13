@@ -117,7 +117,7 @@ export default function Chat() {
       });
 
       setSavedWorkoutIds((prev) => [...prev, message.id]);
-      alert("Workout saved!");
+      // alert("Workout saved!");
     } catch (err) {
       console.error(err);
       alert("Failed to save workout.");

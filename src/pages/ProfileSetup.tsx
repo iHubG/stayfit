@@ -167,7 +167,7 @@ export default function ProfileSetup() {
               {/* Submit */}
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg"
+                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-lg cursor-pointer"
                 disabled={loading}
               >
                 {loading ? (
