@@ -42,11 +42,7 @@ import { Loader2 } from "lucide-react";
 
 const profileSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  age: z
-    .number({
-      invalid_type_error: "Age must be a number",
-    })
-    .min(1, "Age must be positive"),
+  age: z.number().min(1, "Age must be positive"),
 
   fitnessLevel: z.enum(["beginner", "intermediate", "advanced"]),
   primaryGoal: z.enum([
