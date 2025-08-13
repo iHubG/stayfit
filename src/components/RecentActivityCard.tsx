@@ -32,7 +32,7 @@ export default function RecentActivityCard({ workouts, onViewAll }: Props) {
             return (
               <div
                 key={workout.id}
-                className="flex items-center justify-between p-3 rounded-md bg-gray-50 hover:bg-gray-100 transition cursor-pointer"
+                className="flex items-start md:items-center flex-col md:flex-row justify-between p-3 rounded-md bg-gray-50 hover:bg-gray-100 transition cursor-pointer"
                 onClick={() => navigate('/workouts', { state: { selectedId: workout.id } })}
               >
                 <div className="flex items-center gap-3">
@@ -42,7 +42,7 @@ export default function RecentActivityCard({ workouts, onViewAll }: Props) {
                     <p className="text-xs text-gray-500">{date ? date.toLocaleDateString() : "Recent"}</p>
                   </div>
                 </div>
-                <div className="text-sm text-gray-500">{(data.duration || "").replace(/\*\*/g, "")}</div>
+                <div className="text-sm text-gray-500 ml-4 mt-2 md:m-0">{(data.duration || "").replace(/\*\*/g, "")}</div>
               </div>
             );
           })}
