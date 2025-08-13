@@ -10,7 +10,6 @@ const Register = lazy(() => import("../pages/auth/Register"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const Chat = lazy(() => import("../pages/Chat"));
 const Workouts = lazy(() => import("../pages/Workouts"));
-const WorkoutDetail = lazy(() => import("../components/WorkoutDetail"));
 const Profile = lazy(() => import("../pages/Profile"));
 const ProfileSetup = lazy(() => import("../pages/ProfileSetup")); 
 const NotFound = lazy(() => import("../pages/NotFound"));
@@ -60,14 +59,7 @@ export const routes: RouteObject[] = [
       </PrivateRoute>
     ),
   },
-  {
-    path: "/workout/:id",
-    element: (
-      <PrivateRoute>
-        <Page title="StayFit | Workout Details "><WorkoutDetail /></Page>
-      </PrivateRoute>
-    ),
-  },
+  
   {
     path: "/profile",
     element: (
