@@ -5,24 +5,24 @@ StayFit focuses on **simplicity**, **user-friendly design**, and **valuable fitn
 
 ---
 
-## 📋 Project Overview
+## Project Overview
 
 **Project Name:** StayFit  
 **Description:** StayFit leverages AI to deliver tailored workout plans, answer fitness questions, and guide users toward their goals in a conversational and engaging way.
 
 ---
 
-## 🚀 Features
+## Features
 
-- 🤖 **AI-Powered Recommendations** – Personalized workouts using Google Gemini API 2.5 Flash.  
-- 🔐 **Secure Authentication** – User accounts with Firebase Authentication.  
-- 📊 **Progress Tracking** – Store and manage workout history with Firestore Database.  
-- 🎨 **Modern UI** – Built with Tailwind CSS and shadcn/ui for a clean, responsive design.  
-- 🌐 **Cross-Platform Ready** – Optimized for desktop and mobile browsers.  
+-  **AI-Powered Recommendations** – Personalized workouts using Google Gemini API 2.5 Flash.  
+-  **Secure Authentication** – User accounts with Firebase Authentication.  
+-  **Progress Tracking** – Store and manage workout history with Firestore Database.  
+-  **Modern UI** – Built with Tailwind CSS and shadcn/ui for a clean, responsive design.  
+-  **Cross-Platform Ready** – Optimized for desktop and mobile browsers.  
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 **Frontend:** React + TypeScript  
 **Styling:** Tailwind CSS + shadcn/ui components  
