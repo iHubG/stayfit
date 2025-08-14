@@ -5,13 +5,6 @@ StayFit focuses on **simplicity**, **user-friendly design**, and **valuable fitn
 
 ---
 
-## Project Overview
-
-**Project Name:** StayFit  
-**Description:** StayFit leverages AI to deliver tailored workout plans, answer fitness questions, and guide users toward their goals in a conversational and engaging way.
-
----
-
 ## Features
 
 -  **AI-Powered Recommendations** – Personalized workouts using Google Gemini API 2.5 Flash.  
