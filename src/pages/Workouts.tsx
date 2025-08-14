@@ -184,7 +184,7 @@ export default function Workout() {
             {workouts.map((workout) => (
               <Card
                 key={workout.id}
-                className="hover:shadow-lg transition cursor-pointer"
+                className="hover:shadow-lg transition cursor-pointer flex-col justify-between"
                 onClick={() => setSelectedWorkout(workout)}
               >
                 <CardHeader className="flex flex-row justify-between items-start">
@@ -203,7 +203,7 @@ export default function Workout() {
                       {workout.duration.replace(/\*\*/g, "")}
                     </ReactMarkdown>
                   </p>
-                  <p className="text-xs text-gray-400 mb-2">
+                  <p className="text-xs text-gray-400 mb-3">
                     {workout.createdAt?.toDate
                       ? new Date(
                           workout.createdAt.toDate()
@@ -211,8 +211,8 @@ export default function Workout() {
                       : ""}
                   </p>
                   {workout.completed && (
-                    <span className="text-green-600 text-sm font-medium">
-                      ✓ Completed
+                    <span className="text-green-600 text-xs font-medium bg-green-200 p-1 rounded-lg px-3">
+                      Completed ✓ 
                     </span>
                   )}
                 </CardContent>
@@ -237,7 +237,7 @@ export default function Workout() {
             </div>
 
             <Card className="shadow-lg">
-              <CardHeader>
+              <CardHeader className="px-10">
                 <CardTitle className="text-xl font-semibold">
                   <ReactMarkdown>
                     {(selectedWorkout.title || "").replace(/\*\*/g, "")}
@@ -271,7 +271,7 @@ export default function Workout() {
                         : "bg-blue-500 hover:bg-blue-600 cursor-pointer"
                     }
                   >
-                    <Check className="w-4 h-4 mr-2" />
+                    <Check className="w-4 h-4" />
                     {selectedWorkout.completed
                       ? "Completed"
                       : "Mark as Completed"}
@@ -289,14 +289,14 @@ export default function Workout() {
                     }
                     className={
                       selectedWorkout.isFavorite
-                        ? "bg-yellow-400 hover:bg-yellow-500"
+                        ? "bg-yellow-400 hover:bg-yellow-500 cursor-pointer"
                         : "cursor-pointer"
                     }
                   >
                     <Star
-                      className={`w-4 h-4 mr-2 ${
+                      className={`w-4 h-4 ${
                         selectedWorkout.isFavorite
-                          ? "fill-yellow-500 text-yellow-500"
+                          ? "fill-white text-white"
                           : ""
                       }`}
                     />
@@ -311,7 +311,7 @@ export default function Workout() {
                     variant="destructive"
                     className="cursor-pointer"
                   >
-                    <Trash className="w-4 h-4 mr-2" /> Delete
+                    <Trash className="w-4 h-4" /> Delete
                   </Button>
                 </div>
 
